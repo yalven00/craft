@@ -1,0 +1,12 @@
+h1 Market Salary
+.row-fluid
+  .span12
+    = form_for 'search', url: search_market_salaries_path, remote: true, method: :get, html: { class: 'form-horizontal' } do |f|
+      = f.label 'company', 'Enter company name'
+      = f.text_field 'company'
+      = f.label 'title', 'Enter job title'
+      = f.text_field 'title'
+      = f.submit 'Search'
+
+.row-fluid
+  .span12.result

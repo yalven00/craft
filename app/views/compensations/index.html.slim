@@ -1,0 +1,113 @@
+.page-header
+  h1 Salary
+
+h4 Full-time compensation
+/ = link_to 'Charts', charts_compensations_path
+/ br
+/ = link_to 'Currencies', currencies_path
+/ br
+/ = link_to 'Compare', compare_compensations_path
+
+
+.row
+  .col-md-2
+    h5 Bonus
+    = label_tag 'bonus_on', class: 'radio inline control-label' do
+      = radio_button_tag 'bonus', 'on', class: 'radio'
+      | Yes
+    = label_tag 'bonus_off', class: 'radio inline control-label' do
+      = radio_button_tag 'bonus', 'off', true, class: 'radio'
+      | No
+
+  .col-md-2
+    h5 Equity
+    = label_tag 'equity_on', class: 'radio inline control-label' do
+      = radio_button_tag 'equity', 'on', class: 'radio'
+      | Yes
+    = label_tag 'equity_off', class: 'radio inline control-label' do
+      = radio_button_tag 'equity', 'off', true, class: 'radio'
+      | No
+
+.table-responsive
+  table.table.table-condensed
+    thead
+      tr
+        th Company
+        th Location
+        th Title
+        th Dates
+        th Currency
+        th Base salary
+        th.bonus Target
+        th.bonus Actual paid
+        th.bonus % of Target
+        th.bonus Total cash
+        th.equity Equity
+        th Notes
+        th Actions
+    tbody.full_time
+      - @full_time.each_with_index do |compensation|
+        tr id=compensation.id
+          td= compensation.company
+          td= compensation.location
+          td= compensation.title
+          td
+            = compensation.start_date
+            br
+            = compensation.end_date
+          td= compensation.currency
+          td= number_with_delimiter compensation.base_salary.round
+          td.bonus= compensation.target.present? && compensation.target.zero? ? '' : number_with_delimiter(compensation.target.round)
+          td.bonus= compensation.actual_paid.present? && compensation.actual_paid.zero? ? '' : number_with_delimiter(compensation.actual_paid.round)
+          td.bonus= compensation.percent_of_target.present? && compensation.percent_of_target.zero? ? '' : compensation.percent_of_target
+          td.bonus= number_with_delimiter compensation.total.round
+          td.equity= compensation.equity
+          td= compensation.notes
+          td
+            = link_to 'Edit', edit_compensation_path(compensation), class: 'btn btn-xs', remote: true
+            = link_to 'Delete', compensation_path(compensation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true
+
+= link_to "Add Full-time compensation", "/salary/new?type=full_time", class: 'btn btn-sm btn-primary', remote: true
+
+hr
+
+h4 Consulting compensation
+
+.table-responsive
+  table.table.table-condensed
+    thead
+      tr
+        th Company
+        th Location
+        th Dates
+        th Rate Type
+        th Currency
+        th Rate
+        th Number
+        th Total Base Pay
+        th Bonus
+        th Total Cash
+        th Notes
+        th Actions
+    tbody.consulting
+      - @consulting.each do |compensation|
+        tr id=compensation.id
+          td= compensation.company
+          td= compensation.location
+          td
+            = compensation.start_date
+            br
+            = compensation.end_date
+          td= compensation.rate_type
+          td= compensation.currency
+          td= number_with_delimiter compensation.rate.round
+          td= number_with_delimiter compensation.number.round
+          td= number_with_delimiter compensation.base_salary.round
+          td= number_with_delimiter compensation.bonus.round
+          td= number_with_delimiter compensation.total.round
+          td= compensation.notes
+          td
+            = link_to 'Edit', edit_compensation_path(compensation), class: 'btn btn-xs', remote: true
+            = link_to 'Delete', compensation_path(compensation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true
+
+= link_to "Add Consulting compensation", "/salary/new?type=consulting", class: 'btn  btn-sm btn-primary', remote: true

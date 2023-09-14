@@ -1,0 +1,11 @@
+- @tweets.each do |tweet|
+  .tweet.media
+    = image_tag tweet.user.profile_image_url, class: 'media-object pull-left'
+    .media-body
+      h4.media-heading @#{link_to tweet.user.username, '#', title: tweet.user.username}
+      #{tweet.created_at.strftime('%Y-%m-%d %H:%m')} via #{tweet.source.html_safe}
+      .text= format_tweet(tweet.full_text, tweet.hashtags)
+      - unless tweet.retweet_count.zero?
+        span.icon-19.retweet
+        span.retweetedBy Retweeted by #{tweet.retweet_count} people.
+  hr

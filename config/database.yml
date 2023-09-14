@@ -1,0 +1,20 @@
+common: &common
+  adapter: postgresql
+  encoding: utf8
+  host: localhost
+  username: craft
+  password: craft
+  pool: 60
+  timeout: 5000
+
+development:
+  <<: *common
+  database: craft_development
+
+test: 
+  <<: *common
+  database: craft_test
+
+production:
+  <<: *common
+  database: craft_production

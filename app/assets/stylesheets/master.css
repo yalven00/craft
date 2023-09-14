@@ -1,0 +1,250 @@
+section.container-ctr {
+  text-align: center;
+}
+
+
+/* Welcome Page
+----------------------------------------*/
+
+
+.inner-page h2 {
+  font-size: 2em;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+  color: #333;
+  text-shadow: 0 1px 0 #fff;
+  margin: 10px 0;
+  line-height: 42px;
+}
+
+p.sub {
+  text-align: center;
+  background: url(../img/divider-line.png) repeat-x left bottom;
+  padding: 0 0 30px 0;
+}
+
+.inner-page h3 {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  text-shadow: 0 1px 0 #fff;
+  font-size: 1.4em;
+  font-weight: 400;
+  line-height: 26px;
+  margin: 10px 0;
+  padding: 0 0 10px 0;
+  background: url(../img/panel-divider.png) repeat-x left bottom;
+}
+
+section.panel {
+  background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.6);
+  border-top: 3px solid #439BC8;
+  padding: 12px 3%;
+  width: 29%;
+  float: left;
+  margin: 2%;
+  height: 342px;
+  box-shadow: none;
+}
+
+section.panel:hover {
+    cursor: pointer;
+    background: none repeat scroll 0% 0% rgba(255, 255, 255, 0.9);
+}
+
+section.panel p {
+  background: url(../img/panel-divider.png) repeat-x left bottom;
+  padding: 0 0 10% 0;
+  height: 112px;
+}
+
+
+p.help {
+  text-align: center;
+  background: url(../img/divider-line.png) repeat-x left top;
+  padding: 3% 0 0 0;
+  margin: 2% 0 0 0;
+}
+
+
+
+
+/* Button Styles
+----------------------------------------*/
+
+.signin-btn { 
+  color: #fff !important;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 1.1em;
+  text-shadow: 0px 1px 0px #687a3b !important;
+  display: inline-block;
+  padding: 6px 15px 8px;
+  text-align: center;
+    background-color: #adc76a;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#adc76a), to(#95b04d));
+  background-image: -webkit-linear-gradient(top, #adc76a, #95b04d); 
+  background-image:    -moz-linear-gradient(top, #adc76a, #95b04d);
+  background-image:     -ms-linear-gradient(top, #adc76a, #95b04d);
+  background-image:      -o-linear-gradient(top, #adc76a, #95b04d);
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #7f9d31;
+  -moz-box-shadow:
+    inset 0px 1px 0px rgba(255,255,255,0.4),
+    inset 0px -1px 0px rgba(0,0,0,0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow:
+    inset 0px 1px 0px rgba(255,255,255,0.4),
+    inset 0px -1px 0px rgba(0,0,0,0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    inset 0px 1px 0px rgba(255,255,255,0.4),
+    inset 0px -1px 0px rgba(0,0,0,0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.signin-btn:hover { 
+    background-color: #95b04d;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#95b04d), to(#adc76a));
+  background-image: -webkit-linear-gradient(top, #95b04d, #adc76a); 
+  background-image:    -moz-linear-gradient(top, #95b04d, #adc76a);
+  background-image:     -ms-linear-gradient(top, #95b04d, #adc76a);
+  background-image:      -o-linear-gradient(top, #95b04d, #adc76a);
+}
+
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+
+  
+  p {
+    font-size: 0.8em;
+  }
+    
+  header h1 {
+    float: none;
+    margin: 0 auto;
+  }
+  
+  header nav, #main, .inner-page, aside {
+    float: left;
+    clear: left;
+    margin: 0 0 10px; 
+    width: 100%;
+  } 
+  
+  header nav li {
+    margin: 0;
+    display: block;
+  }
+  
+  header nav a {
+    display: block;
+    padding: 5px 5px 2px;
+    text-align: center;
+  }
+  
+  header nav a.signin-btn {
+    margin: 0 auto;
+    display: block;
+    width: 25%;
+    padding: 10px 0;
+  }
+  
+  #main h2, .innerpage h2 {
+    font-size: 30px;
+    line-height: 34px;
+  }
+  
+  section.panel {
+    float: none;
+    display: block;
+    margin: 0 auto 20px;
+    width: 90%;   
+  }
+  
+  section.panel p {
+    min-height: 0px;
+  }
+  
+  section.col-a {
+    float: none;
+    display: block;
+    margin: 0 auto 20px;
+    width: 90%;
+    min-height: 290px; 
+  }
+  
+  .col-b-fixed img {
+    width: 100%;
+    display: block;
+    margin: 0 0 10px 0;
+  }
+  
+  
+  /* Signin Form */
+  
+  #main form#signup {
+    width: 90%;
+    margin: 0 0 20px 0;
+  }
+  
+  form#signup input[type=email] {
+    font-size: 14px;
+  }
+  
+  form#signup img {
+    width: 80%;
+  }
+
+}
+
+@media all and (max-width: 740px) {
+
+
+  
+
+
+}
+
+@media all and (min-width: 600px) and (max-width: 800px) {
+  
+  /* Styles */
+
+  
+  section.panel {
+    display: inline-block;
+    padding: 8px 3%;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #e3e3e3;
+    width: 22%;
+    float: left;
+    margin: 2%;
+    min-height: 300px;
+    -webkit-box-shadow:  0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+      box-shadow:  0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+
+
+@media all and (max-width: 800px) {
+  
+  /* Styles */
+  
+  p {
+    font-size: 1em;
+  }
+
+}
+
+
+@media all and (max-width: 960px) {
+  
+  
+  .col-b-fixed, .col-b {
+    display: block;
+    float: none;
+    max-width: 96%;
+    margin: 0 auto;
+  }
+  
+}

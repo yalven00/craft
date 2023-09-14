@@ -1,0 +1,16 @@
+table.table
+  thead
+    tr
+      th Employer
+      th Job Title
+      th Annual Salary
+      th Date
+  tbody
+    - @result.each do |row|
+      tr
+        td= row.employer_name
+        td= row.job_title
+        td $#{row.prevailing_wage.to_i}
+        td= row.submitted_date.strftime('%Y-%m-%d %H:%M')
+
+= paginate @result, remote: true

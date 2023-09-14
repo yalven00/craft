@@ -1,0 +1,16 @@
+.grid
+  - columns = chunk_categories @categories
+
+  .row
+    - [:first, :second, :third].each do |number|
+      .col-sm-4
+        - columns[number].each do |category|
+          .category
+            h4=category.name
+            - @companies.in_category(category.id).each do |company|
+              = link_to company_link(company), data: {content: company.description, "original-title" => company.name, placement: "auto", trigger: "hover"}, rel: 'popover', target: :blank do
+                = image_tag (company.logo || image_path('default.png'))
+
+  javascript:
+    $('#table-view').tooltip('show');
+    $('.category a').popover({delay: {show: 50, hide: 100}});

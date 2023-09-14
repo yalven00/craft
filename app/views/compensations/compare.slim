@@ -1,0 +1,21 @@
+.page-header
+  h1 Compare
+
+= link_to 'Charts', charts_compensations_path
+br
+= link_to 'Currencies', currencies_path
+br
+= link_to 'Salary', compensations_path
+
+= form_for 'search', url: compare_compensations_path, method: :get, html: {class: 'search'} do |f|
+  = f.label 'title', 'Job Title'
+  = f.text_field 'title', id: 'autocomplete'
+  = f.submit 'Search'
+
+  .row-fluid.states
+    - MedianSalary::STATES.each do |state|
+      .state
+        = f.label state, state
+        = f.check_box state, name: state
+
+.row-fluid.results

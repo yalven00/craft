@@ -1,0 +1,16 @@
+// Place all the styles related to the projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.form-inline{
+  div{
+    display: inline-block;
+  }
+}
+#positions{
+  table{
+    label{
+      display: inline-block;
+      padding-right: 4px;
+    }
+  }
+}

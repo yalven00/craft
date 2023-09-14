@@ -1,0 +1,58 @@
+doctype html
+html lang="en" 
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    title Craft
+    = favicon_link_tag "favicon.ico"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
+    /! HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /![if lt IE 9]
+      script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"
+      script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"
+    - if Rails.env.production?
+      = render 'google_analytics'
+  body role="document" 
+    = render 'navbar'
+    section#home
+      .container.welcome
+        .fake-bg
+        .message
+          .middle
+            div
+              h1 Welcome to Craft
+              h2 A discovery engine for companies and opportunities
+    section#industries
+      .container
+        .row
+          .col-sm-10.col-sm-offset-1
+            h3 Choose an industry to discover:
+            .buttons
+              .overflow
+                .test
+                  = link_to companies_path(industry: 'all'), class: 'round default' do
+                    i.fa.fa-globe
+                    span.round All
+              .overflow
+                .test
+                  = link_to companies_path(industry: 'Video'), class: 'round info' do
+                    i.fa.fa-video-camera
+                    span.round Video
+              .overflow
+                .test
+                  = link_to companies_path(industry: 'Music'), class: 'round primary' do
+                    i.fa.fa-music
+                    span.round Music
+              .overflow
+                .test
+                  = link_to companies_path(industry: 'News'), class: 'round success' do
+                    i.fa.fa-rss
+                    span.round News
+              .overflow
+                .test
+                  = link_to companies_path(industry: 'On-Demand Mobile Services'), class: 'round danger' do
+                    i.fa.fa-mobile
+                    span.round.big On-Demand Mobile Services

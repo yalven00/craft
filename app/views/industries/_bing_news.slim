@@ -1,0 +1,6 @@
+- @news.first[:News].each do |item|
+  .media
+    .media-body
+      .media-heading= link_to item[:Title], item[:Url]
+      .muted= item[:Date].gsub(/(T|Z)/, ' ')
+      div.text=item[:Description]

@@ -1,0 +1,6 @@
+.row
+  .col-md-6
+    #employees.chart-wrap data-chart=[{name: 'Employees', data: [@company.previous_employees, @company.employees]}].to_json
+
+  .col-md-6
+    #followers.chart-wrap data-chart=[{name: 'Twitter Followers', data: [@company.previous_twitter_followers, @company.twitter_followers]}].to_json

@@ -1,0 +1,35 @@
+.page-header 
+  h1 Currencies
+
+= link_to 'Charts', charts_compensations_path
+br
+= link_to 'Salary', compensations_path
+br
+= link_to 'Compare', compare_compensations_path
+
+ul.nav.nav-tabs#currency-tabs
+  li.active=link_to 'Table', '#table', data: {toggle: 'tab'}
+  li=link_to 'Charts', '#currency-charts', data: {toggle: 'tab'}
+
+.tab-content
+  .tab-pane#currency-charts
+    #gbp data-name="GBP" data-data=@charts[:gbp][:data] data-labels=@charts[:gbp][:labels]
+    #eur data-name="EUR" data-data=@charts[:eur][:data] data-labels=@charts[:eur][:labels]
+    #btc data-name="BTC" data-data=@charts[:btc][:data] data-labels=@charts[:btc][:labels]
+
+  .tab-pane#table.active
+    h5 To USD
+    table.table
+      thead
+        tr
+          th Date
+          th GBP
+          th EUR
+          th BTC
+
+        - @gbp.count.times do |i|
+          tr
+            td= @gbp[i].date.strftime('%Y-%m')
+            td= print_currency(@gbp[i])
+            td= print_currency(@eur[i])
+            td= print_currency(@btc[i])

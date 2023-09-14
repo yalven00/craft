@@ -1,0 +1,16 @@
+p Here you can import any companies and our search engine will find the information about them.
+p We accept CSV files. Only company name is required, any other data will be ignored.
+
+= link_to 'Show me example file', '/import_example.csv'
+
+
+= form_for :dump, url: {action: 'import_post'}, html: { multipart: true } do |f|
+  table
+    tr
+      td
+        label Please select a file to import
+      td
+        = f.file_field :file
+    tr
+      td
+        = submit_tag 'Submit'

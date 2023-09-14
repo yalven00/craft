@@ -1,0 +1,4 @@
+- project.assets.each do |asset|
+  .span12 id="asset_#{asset.id}"
+    = link_to_file asset
+    = link_to '×', asset, method: :delete, remote: true, class: 'close delete-asset' if delete

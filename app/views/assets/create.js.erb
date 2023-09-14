@@ -1,0 +1,7 @@
+if ($('a.new-asset').length > 0){
+  $('a.new-asset').popover('hide');
+  $('.assets-popover').html('<%= j render "assets/for_project", {project: @asset.project, delete: true} %>');
+}
+else{
+  $('.<%= @asset.asset_type.pluralize %> .well:first').replaceWith('<%= j render partial: "form", locals: {asset: @asset} %>').effect("highlight", 3000);
+}

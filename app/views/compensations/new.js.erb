@@ -1,0 +1,4 @@
+if ('<%= params[:type] == "full_time" %>' == 'true'){
+  $('#bonus_on, #equity_on').prop('checked', true).change(); // Fire 'change' event to show hidden cells.
+}
+$('tbody.<%= params[:type] %>').append('<%= j render partial: "form_#{params[:type]}" %>');

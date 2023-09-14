@@ -1,0 +1,28 @@
+.ajax-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  margin: 0 auto;
+  background-image: url(image_path("ajax-loader.gif"));
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#map{
+  min-height: 500px;
+}
+
+h1 {
+  span.info {
+    font-size: 10.5px;
+    vertical-align: top;
+  }
+}
+.chart-wrap {
+  width: 100%;
+  margin: 15px auto;
+  background: #fff;
+}

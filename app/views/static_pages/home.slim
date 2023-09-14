@@ -1,0 +1,35 @@
+section#main.group
+  h2 
+    | Your 
+    em private 
+    | career dashboard, to keep all your accomplishments organized in one place, and for your eyes only
+  section.container-ctr.group
+    section.col-a
+      = image_tag image_path("document-icon.png"), alt: "An icon of a pile of documents", height: "108", width: "108"
+      h3 Document everything you do for work
+      p Perfect for presenting to your boss at the end of the year, and hitting your annual review out of the park
+    /! col-a
+    section.col-a
+      = image_tag image_path("showcase-icon.png"), alt: "An icon of a checklist", height: "108", width: "108"
+      h3 Showcase your skills to future employers
+      p Easily select which accomplishments to include in a customized Resumé for each job opportunity
+    /! col-a
+    section.col-a
+      = image_tag image_path("track-icon.png"), alt: "An icon of a bar chart", height: "108", width: "108"
+      h3 Track your salary progression
+      p With all your salary and benefits information neatly stored in one place, it's easy to compare jobs and negotiate a better salary
+    /! col-a
+  section.signin.container-ctr.group
+    - if !user_signed_in?
+      = render 'devise/registrations/form'
+    - elsif !current_user.linkedin_authentication.present?
+      = link_to 'Import data from LinkedIn', user_omniauth_authorize_path(:linkedin), class: 'btn'
+  section.container-b
+    section.col-b-fixed
+      = image_tag image_path("macbook.png"), alt: "An image of a mac book"
+    /! col-b
+    section.col-b
+      p Craft is not a task-management or collaboration tool.  Even though we work in teams, you are the one who wins great projects and produces exceptional work.
+      p That’s why Craft is your personal and private career dashboard, perfect for organizing all of your work accomplishments, and for your eyes only.
+    /! col-b
+  /! containter-b

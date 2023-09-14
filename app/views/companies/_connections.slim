@@ -1,0 +1,6 @@
+.row-fluid
+  .span12
+    b Connections: #{@connections.total}
+    dl
+    - @connections.all.each do |connection|
+      dd #{connection.first_name} #{connection.last_name}

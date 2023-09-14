@@ -1,0 +1,29 @@
+section.inner-page.group#welcome
+  h2 Welcome to your personal and private career dashboard
+  p.sub Craft has 3 main sections, for you to keep track of your work and achievements
+  section.container-ctr.group
+
+    section.panel
+      =image_tag image_path('experience-icon.png'), alt: "An icon for experience"
+      h3 Experience
+      p Record and keep all the projects you work on and keep your work organized by job
+      =link_to 'View', positions_path, class: 'btn btn-info btn-lg'
+
+    section.panel
+      =image_tag image_path('salary-icon.png'), alt: "An icon for salary"
+      h3 Salary
+      p Track and compare your salary and benefits for all your jobs and projects
+      =link_to 'View', compensations_path, class: 'btn btn-info btn-lg'
+
+    section.panel
+      =image_tag image_path('education-icon.png'), alt: "An icon for education"
+      h3 Education
+      p Keep your transcripts, diplomas, learning materials organized, and if you take an online course, store the details here
+      =link_to 'View', educations_path, class: 'btn btn-info btn-lg'
+
+  .clearfix
+
+  p.help
+    | If you have any questions, email us at help at craft.co
+    a href="#" title=""
+  h2 Happy Career Building!

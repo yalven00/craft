@@ -1,0 +1,30 @@
+tr.row id=@project.id
+  td.col-sm-2
+    = text_field_tag 'project[name]', @project.name, class: 'form-control'
+  td.col-sm-2
+    = text_area_tag 'project[description]', @project.description, class: 'form-control', rows: '3'
+  td.col-sm-2
+    = label_tag 'Start'
+    = text_field_tag 'project[start_date]', @project.start_date, class: 'form-control'
+    br
+    = label_tag 'End'
+    = text_field_tag 'project[end_date]', @project.end_date, class: 'form-control'
+  td.col-sm-2
+    = text_field_tag 'project[link]', @project.link, class: 'form-control'
+  td.col-sm-2
+    = link_to "Show all", '#', class: 'btn show-assets', onclick: 'return false;'
+    = link_to "Add new", '#', class: 'btn new-asset', onclick: 'return false;'
+    / .new-asset-popover style="display:none;"
+    /   = form_for @asset, multipart: true, authenticity_token: true, remote: true do |f|
+    /     = f.file_field :file
+    /     = f.hidden_field :mid, value: @project.id
+    /     = f.hidden_field :for_model, value: 'project'
+    /     = f.hidden_field :asset_type, value: 'asset'
+    /     = f.submit 'Save'
+
+    .assets-popover style="display:none;"
+      = render 'assets/for_project', {project: @project, delete: true}
+
+  td.col-sm-1
+    = submit_tag 'Save', class: "btn btn-sm btn-success #{@project.new_record? ? 'create' : 'update' }-project"
+    = link_to 'Discard', project_path(@project), class: 'btn btn-xs btn-danger', remote: true

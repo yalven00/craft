@@ -1,0 +1,17 @@
+// Place all the styles related to the roles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#roles{
+  max-height: 100%;
+  #tweets .tweets, #news .news {
+    position: fixed;
+    max-height: 100%;
+    overflow-y: scroll;
+  }
+  .news{
+    right: 0;
+  }
+  .tweets{
+    padding-bottom: 50px;
+  }
+}

@@ -1,0 +1,15 @@
+= link_to 'Compare', compare_compensations_path
+br
+= link_to 'Currencies', currencies_path
+br
+= link_to 'Detail View', compensations_path
+
+.row-fluid
+  .span12.charts
+    #full-time-compensations data-labels=@charts[:full_time][:labels] data-compensations=@charts[:full_time][:compensations]
+    br
+    #consulting-total-cash data-labels=@charts[:consulting_total_cash][:labels] data-data=@charts[:consulting_total_cash][:data]
+    br
+    #consulting-comparison data-labels=@charts[:consulting][:labels] data-data=@charts[:consulting][:data]
+    br
+    / #salary-progression data-labels=@charts[:salary][:labels] data-compensations=@charts[:salary][:data][0] data-progression=@charts[:salary][:data][1]

@@ -1,0 +1,19 @@
+tr id=@compensation.id
+  td= @compensation.company
+  td= @compensation.location
+  td= @compensation.title
+  td
+    = @compensation.start_date
+    br
+    = @compensation.end_date
+  td= @compensation.currency
+  td= number_with_delimiter @compensation.base_salary.round
+  td.bonus= @compensation.target.present? && @compensation.target.zero? ? '' : number_with_delimiter(@compensation.target.round)
+  td.bonus= @compensation.actual_paid.present? && @compensation.actual_paid.zero? ? '' : number_with_delimiter(@compensation.actual_paid.round)
+  td.bonus= @compensation.percent_of_target.present? && @compensation.percent_of_target.zero? ? '' : @compensation.percent_of_target
+  td.bonus= number_with_delimiter @compensation.total.round
+  td.equity= @compensation.equity
+  td= @compensation.notes
+  td
+    = link_to 'Edit', edit_compensation_path(@compensation), class: 'btn btn-xs', remote: true
+    = link_to 'Delete', compensation_path(@compensation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true

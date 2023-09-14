@@ -1,0 +1,17 @@
+- if @company.divisions.present?
+  .row
+    .col-sm-12
+      h3 Divisions
+
+      - if @company.careers_page.present?
+        p= link_to "Visit #{@company.name} jobs page", @company.careers_page
+
+      ul.list-unstyled.divisions.clearfix
+        - @company.divisions.each do |division|
+          li
+            - if division.teams.present?
+              = link_to division, remote: true do
+                span= division.name
+            - else
+              = link_to '#' do
+                span= division.name

@@ -1,0 +1,27 @@
+= link_to "Leave feedback", "#my-modal", :class => "btn", "data-toggle" => "modal", class: 'modal-link'
+.modal.hide.fade#my-modal title="My modal"
+  .modal-header
+    button.close aria-hidden="true" data-dismiss="modal" type="button" ×
+    h3#myModalLabel Feedback
+  .modal-body
+    = form_tag 'feedback', url: feedback_path, method: 'POST', class: 'form-horizontal' do
+      - if user_signed_in?
+        = hidden_field_tag 'name', current_user.full_name
+        = hidden_field_tag 'email', current_user.email
+      - else
+        .control-group
+          = label_tag 'name'
+          .control
+            = text_field_tag 'name'
+        .control-group
+          = label_tag 'email'
+          .control
+            = email_field_tag 'email'
+      .control-group
+        = label_tag 'message'
+        .control
+          = text_area_tag 'message', nil
+      .control-actions
+        = submit_tag 'Send', class: 'btn btn-primary'
+  .modal-footer
+    button aria-hidden="true" class="btn" data-dismiss="modal" Close

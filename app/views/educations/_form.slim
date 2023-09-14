@@ -1,0 +1,125 @@
+.col-sm-6.col-sm-offset-3
+  .form-box
+    .header= @education.new_record? ? 'New Education' : @education.school
+    = form_for @education, :html => { :multipart => true, :class => 'form-horizontal education' } do |f|
+      .body.bg-gray
+        .form-group.input-group
+          = f.label :school, :class => 'control-label'
+          .controls
+            = f.text_field :school, :class => 'form-control'
+
+        .form-group.input-group
+          = f.label :degree, :class => 'control-label'
+          .controls
+            = f.text_field :degree, :class => 'form-control'
+
+        .form-group.input-group
+          = f.label :field_of_study, :class => 'control-label'
+          .controls
+            = f.text_field :field_of_study, :class => 'form-control'
+
+          .col-sm-12
+            .form-group.input-group
+              = f.label "Start Year", :class => 'control-label'
+                = f.select :start_year, (1950..Time.now.year).to_a, {include_blank: {:year => "Select year"}}, { class: 'form-control' }
+              = f.label "End Year", :class => 'control-label'
+                = f.select :end_year, options_for_select([@education.end_year], @education.end_year), {}, {class: 'muted form-control'}
+        hr
+        .row-fluid
+          .span12
+            h5 Transcripts
+            = link_to 'New Transcript', new_asset_path(for_model: 'education', mid: @education.id, asset_type: 'transcript'), remote: true, class: 'btn btn-success btn-xs'
+            .transcripts
+              - unless @education.new_record?
+                - @education.transcripts.each do |asset|
+                  = render partial: 'assets/form', locals: {asset: asset}
+        hr
+        .row-fluid
+          .span12
+            h5 Files
+            = link_to 'New File', new_asset_path(for_model: 'education', mid: @education.id, asset_type: 'asset'), remote: true, class: 'btn btn-success btn-xs'
+            .assets
+              - unless @education.new_record?
+                - @education.assets.each do |asset|
+                  = render partial: 'assets/form', locals: {asset: asset}
+        hr
+        .row-fluid
+          .span12
+            .form-group.input-group
+              = f.label :notes, :class => 'control-label'
+              .controls
+                = f.text_area :notes, :class => 'form-control', rows: 5
+
+        = f.submit 'Save School', :class => 'btn btn-primary btn-sm'
+        = link_to t('.cancel', :default => t("helpers.links.cancel")), educations_path, :class => 'btn btn-sm'
+
+  / hr
+  / .row-fluid
+  /   .span12.assets
+  /     h5 Materials
+  /     p Hint: keep your diploma in easy reach, and upload your application essays, you’ll love reading them in a few years
+  /     - @education.assets.each do |asset|
+  /       = render 'assets/form', asset: asset
+  /       = link_to 'x', asset, remote: true, method: :delete, data: {confirm: 'Are you sure?'}
+      / = link_to 'New asset', new_asset_path(education_id: @education.id), id: 'new_asset'
+      / = f.fields_for :assets, :html => {:multipart => true,  :class => 'form-horizontal' } do |f_form|
+      /   - unless f_form.object.missing?
+      /     .form-group.input-group
+      /       =link_to f_form.object.file_file_name, f_form.object.file.url, target: :blank
+      /       br
+      /       / = f_form.link_to_remove 'Remove file', class: "btn btn-xs btn-danger"
+      /   .form-group.input-group
+      /     .controls
+      /       = f_form.label :description
+      /       = f_form.text_field :description
+      /   .form-group.input-group
+      /     .controls
+      /       = f_form.label :file
+      /       = f_form.file_field :file, data: {url: asset_path(f_form.object)}
+      / = f.link_to_add "Upload a file", :assets, class: "btn btn-xs btn-success  pull-left"
+
+  / hr
+  / .row-fluid
+  /   .span12
+  /     h5 Files
+  /     = link_to 'New file', new_asset_path(for_model: 'education', mid: @education.id, asset_type: 'asset'), remote: true, class: 'btn btn-success btn-xs'
+  /     .assets
+  /       - @education.assets.each do |asset|
+  /         = render partial: 'assets/form', locals: {asset: asset}
+  / hr
+  / .row-fluid
+  /   .span12
+  /     = f.fields_for :terms, :html => {:multipart => true,  :class => 'form-horizontal' } do |term_form|
+  /       fieldset.well.term-fields
+  /         .form-group.input-group
+  /           = term_form.label :semester, class: 'control-label'
+  /           .controls
+  /             = term_form.text_field :semester
+  /         .form-group.input-group
+  /           = term_form.label :year, class: 'control-label'
+  /           .controls
+  /             - years = @education.start_year.present? ? (@education.start_year..@education.end_year) : (1950..Time.now.year)
+  /             = term_form.select :year, years.to_a, :include_blank => {:year => "Select year"}
+
+  /         = term_form.fields_for :grades, :html => { :class => 'form-inline' } do |grade_form|
+  /           fieldset.well.grade-fields
+  /             .form-group.input-group
+  /               = grade_form.label :name, :class => 'control-label'
+  /               .controls
+  /                 = grade_form.text_field :name
+  /             .form-group.input-group
+  /               = grade_form.label :number, :class => 'control-label'
+  /               .controls
+  /                 = grade_form.text_field :number
+  /             .form-group.input-group
+  /               = grade_form.label :grade, :class => 'control-label'
+  /               .controls
+  /                 = grade_form.text_field :grade
+  /             .form-group.input-group
+  /             = link_to "Save this class", '#', class: "btn btn-xs pull-right", id: "save-class"
+  /             = grade_form.link_to_remove "Remove class", class: "btn btn-xs btn-danger"
+  /         = term_form.link_to_add "Add class", :grades, class: "btn btn-xs pull-right"
+  /         = link_to "Save this term", '#', class: "btn btn-xs pull-right", id: "save-term"
+  /         = term_form.link_to_remove "Remove this term", class: "btn btn-xs btn-danger"
+  /     p= f.link_to_add "Add New Term/Semester", :terms, class: "btn btn-small"
+

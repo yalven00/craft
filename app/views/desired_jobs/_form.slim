@@ -1,0 +1,12 @@
+= form_for @desired_job do |f|
+  .control-group
+    .control
+      = select_tag 'field', options_for_select(DesiredJob::FIELDS.map(&:capitalize).zip(DesiredJob::FIELDS))
+      = f.text_field :company
+      = link_to 'Remove field', '#', class: 'remove-field'
+
+  = link_to 'Add another field', '#', class: 'add-field'
+
+  .control-group
+    .actions
+      = f.submit 'Save', class: 'btn btn-primary'

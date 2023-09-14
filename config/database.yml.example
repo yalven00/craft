@@ -1,0 +1,29 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: mycareerpal_development
+  host: localhost
+  username: mycareerpal
+  password: 
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  database: mycareerpal_test
+  host: localhost
+  username: mycareerpal
+  password: 
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: d44dnvmqhr7r1a
+  host: ec2-54-228-235-149.eu-west-1.compute.amazonaws.com
+  port: 5432
+  username: rteulpeeugqxll
+  password: jGus82AwG4jZC-t0dojgxltoAP

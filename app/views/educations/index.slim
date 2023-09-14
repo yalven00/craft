@@ -1,0 +1,65 @@
+.row-fluid
+  .page-header
+    h1=t '.title', default: 'Education'
+
+    = link_to 'Import data from LinkedIn', user_omniauth_authorize_path(:linkedin), class: 'btn' unless current_user.linkedin_authentication.present?
+
+  - @educations.each do |education|
+    h4= education.school
+    fieldset.well
+      .pull-right
+        = link_to t('.destroy', :default => t("helpers.links.destroy")), education_path(education), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-sm btn-danger pull-right'
+        = link_to t('.edit', :default => "Edit"), edit_education_path(education), :class => 'btn btn-sm pull-right', data: {'no-turbolink' => true}
+
+      table.table
+        thead
+          th Degree
+          th Field of Study
+        tbody
+          tr
+            td=education.degree
+            td=education.field_of_study
+
+      h5=t '.title', :default => "Dates Attended"
+      = education.start_year
+      | -
+      = education.end_year
+      - if education.has_assets?
+        .row-fluid
+          table.table.span12
+            thead
+              th Transcripts
+              th Files
+            tbody
+              td
+                - education.transcripts.each do |t|
+                  = link_to_file t, target: :blank
+              td
+                - education.assets.each do |t|
+                  = link_to_file t, target: :blank
+
+      -if education.terms.present?
+        ol
+          - education.terms.each do |term|
+            li
+              = term.semester
+              |  - 
+              = term.year
+
+            table.table
+              thead
+                tr
+                  th Name
+                  th Number
+                  th Grade
+
+              tbody
+                - term.grades.each do |grade|
+                  tr
+                    td= grade.name
+                    td= grade.number
+                    td= grade.grade
+
+      h5 Notes
+      =education.notes
+  = link_to t('.new', :default => "Add School"), new_education_path, :class => 'btn btn-primary btn-sm'

@@ -1,0 +1,9 @@
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {id: 'signup'}) do |f| %>
+  <%= link_to user_omniauth_authorize_path(:linkedin) do %>
+    <%= image_tag image_path('linkedin-btn.png'), title: "Sign Up With Your LinkedIn Account", alt: "" %>
+  <% end %>
+  <p>Don’t have a LinkedIn account?</p>
+  <p>Enter your email address below</p>
+  <%= f.email_field :email, placeholder: 'Enter Your Email Address' %>
+  <%= f.submit "Sign Up For Free" %>
+<% end %>

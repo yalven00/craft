@@ -1,0 +1,28 @@
+.row-fluid
+  .span12
+    = form_for 'search', url: search_roles_path, remote: true, method: :get, html: { class: 'form-inline' } do |f|
+      .controls-group
+        .controls
+          = f.label 'industry', 'Industry', class: 'control-label'
+          = f.select 'industry', options_for_select(Industry.crunchbase_catagories)
+      br
+      .controls-group
+        .controls
+          = f.label 'functional_area'
+          = f.select 'functional_area', options_for_select(['Account Manager', 'Administrative', 'Design', 'Finance', 'Logistics', 'Marketing', 'Sales'])
+      .controls-group
+        .controls
+          = f.label 'level'
+          = f.select 'level', options_for_select(['Assistant', 'Analyst', 'Senior Analyst', 'Associate', 'Manager', 'Director', 'Senior Director'])
+      .controls-group
+        .controls
+          = f.label 'location', 'Location'
+          = f.select 'location', options_for_select(['Anywhere'])
+      .controls-group
+        .controls
+          = f.label 'keywords', 'Keywords'
+          = f.select 'keywords', options_for_select(['(none)'])
+      = f.submit 'Search', class: 'btn btn-small btn-primary'
+
+.row-fluid
+  .span12.result

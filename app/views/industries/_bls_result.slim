@@ -1,0 +1,14 @@
+h4 =@result[:industry]
+.span12
+  #description.span6 style="height: 200px;"
+    = @result[:industry]
+  #outlets.span6 data-outlets=@result[:outlets] style="height: 200px;"
+
+.span12
+
+.span12
+  #average-salary.span6 data-average-salary=@result[:average_salary] style="height: 200px;"
+  #employment.span6 data-employment=@result[:employment] style="height: 200px;"
+
+javascript:
+  Industries.getInstance().create_charts();

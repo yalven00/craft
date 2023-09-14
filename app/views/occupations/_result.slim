@@ -1,0 +1,14 @@
+h4=@result[:occupation]
+.span12
+  #education.span6 style="height: 200px;"
+    = @result[:education]
+  #salary-range.span6 data-salary-range=@result[:salary_range] style="height: 200px;"
+
+.span12
+
+.span12
+  #jobs.span6 data-jobs=@result[:jobs] style="height: 200px;"
+  #employment.span6 data-employment=@result[:employment] style="height: 200px;"
+
+javascript:
+  Occupations.getInstance().create_charts();

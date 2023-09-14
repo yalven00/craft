@@ -1,0 +1,11 @@
+.row-fluid
+  .span12
+    - if @user_list.user_list_line_items.empty?
+     h4 No items
+    - else
+      h4 #{@user_list.name}
+      ol
+      - @user_list.user_list_line_items.each do |item|
+        li id=dom_id(item)
+          = link_to item.company.name, (item.company.careers_page || '#')
+          = link_to '', item, method: :delete, data: {confirm: "Are you sure you want to delete #{item.company.name}?", remote: true}, class: 'icon-remove'

@@ -1,0 +1,63 @@
+.col-md-2.sidebar.search
+  = form_for 'company', url: search_companies_path, method: :get, remote: true, html: {class: 'form-horizontal'} do |f|
+    ul.filter.list-unstyled
+      li.nav-header
+        = link_to '#', data: {toggle: 'collapse', target: '#ul-industry'} do
+          h5
+            | Industry 
+            i.fa.fa-chevron-down
+        ul#ul-industry.list-unstyled.collapse.in
+          li= f.select 'industry_id', options_for_select(@industries), {:include_blank => 'All'}, {class: 'form-control'}
+
+      li.nav-header
+        = link_to '#', data: {toggle: 'collapse', target: '#ul-category'} do
+          h5
+            | Category 
+            i.fa.fa-chevron-right
+        ul#ul-category.list-unstyled.collapse
+          li= f.select 'category_id', options_for_select([]), {:include_blank => '', disabled: true}, {class: 'form-control'}
+
+      li.nav-header
+        = link_to '#', data: {toggle: 'collapse', target: '#ul-location'} do
+          h5
+            | Location 
+            i.fa.fa-chevron-right
+        ul#ul-location.list-unstyled.collapse
+          li
+            - ['All', 'New York', 'SF Bay Area', 'London'].each do |location|
+              .checkbox
+                = f.label 'location' do
+                  = f.check_box "location[#{location}]", checked: true, id: location == 'All' ? 'all' : ''
+                  i.fa-fw.fa.fa-check-square-o
+                  = location
+
+      li.nav-header
+        = link_to '#', data: {toggle: 'collapse', target: '#ul-size'} do
+          h5
+            | Size 
+            i.fa.fa-chevron-right
+        ul#ul-size.list-unstyled.collapse
+          li
+            - ['All', '1-100', '100-500', '500+'].each do |size|
+              .checkbox
+                = f.label 'size' do
+                  = f.check_box "size[#{size}]", checked: true, id: size == 'All' ? 'all' : ''
+                  i.fa-fw.fa.fa-check-square-o
+                  = size
+
+      li.nav-header
+        = link_to '#', data: {toggle: 'collapse', target: '#ul-growth'} do
+          h5
+            | Growth 
+            i.fa.fa-chevron-right
+        ul#ul-growth.list-unstyled.collapse
+          li
+            - ['All', 'High-growth', 'Growing', 'Stable'].each do |growth|
+              .checkbox
+                = f.label 'growth' do
+                  = f.check_box "growth[#{growth}]", checked: true, id: growth == 'All' ? 'all' : ''
+                  i.fa-fw.fa.fa-check-square-o
+                  = growth
+
+      li.nav-header
+        = f.submit 'Search', class: 'btn btn-default btn-block'

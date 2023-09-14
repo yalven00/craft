@@ -1,0 +1,115 @@
+- if @crunchbase_data.nil?
+  p No data found
+
+- else
+  .span5
+    .row-fluid
+      .span12
+        = image_tag ('http://www.crunchbase.com/' + @crunchbase_data.image['available_sizes'].first.last)
+
+    .row-fluid
+      .span6
+        b Website
+
+      .span6
+        = link_to @crunchbase_data.homepage_url, @crunchbase_data.homepage_url
+
+    .row-fluid
+      .span6
+        b Date founded
+
+      .span6
+        = @crunchbase_data.founded
+
+    .row-fluid
+      .span12
+        b Description
+        br
+        = simple_format @crunchbase_data.overview
+
+    .row-fluid
+      .span12
+        b Location
+
+      .row-fluid
+        .span12#map style="height: 400px;"
+        
+        javascript:
+          handler = Gmaps.build('Google');
+          handler.buildMap({ provider: {}, internal: {id: 'map'}, sensor: false});
+          handler.addMarkers(#{raw @geodata.to_json});
+
+    .row-fluid
+      .span12
+        b Team
+      .span12
+        table.table
+          thead
+            tr
+              th Name
+              th Role
+          tbody
+            - @crunchbase_data.relationships.each do |relationship|
+              tr
+                td #{relationship.person_first_name} #{relationship.person_last_name}
+                td= relationship.title
+      .span12
+        .span6
+          b Total Employees 
+        .span6=@crunchbase_data.number_of_employees
+      .span12.connections
+        = link_to 'Click to see who you are connected with', connections_comparison_path(company: @crunchbase_data.name), remote: true
+
+    .row-fluid
+      .span12
+        b Funding
+
+      .row-fluid
+        .span9
+          b Total Funding
+        .span3=@crunchbase_data.total_money_raised
+
+      .span12
+        table.table
+          thead
+            tr
+              th Round
+              th Date
+              th Investors
+              th Amount ($m)
+          tbody
+            - @crunchbase_data.funding_rounds.each do |funding|
+              tr
+                td= link_to funding['source_description'], funding['source_url'], target: :blank
+                td= funding_date(funding)
+                td= investors(funding)
+                td= funding['raised_amount'] / 1000000.0
+
+  .span2
+    table.table
+      thead
+        tr
+          th Sectors
+      tbody
+        - @crunchbase_data.tags.each do |tag|
+          tr
+            td=tag.capitalize
+
+  .span5
+    .row-fluid
+      .span12
+        b Jobs from Angel List
+        table.table
+          thead
+            tr
+              th Title
+              th Salary
+              th Equity
+              th Tags
+          tbody
+            - @jobs.each do |job|
+              tr
+                td= job.title
+                td #{job.salary_min}-#{job.salary_max}
+                td #{job.equity_min}-#{job.equity_max}
+                td= job.tags.collect{|tag| tag.display_name }.join(', ')

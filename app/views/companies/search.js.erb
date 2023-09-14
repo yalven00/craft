@@ -1,0 +1,23 @@
+$('.search-labels').html('<%= j render "search_labels" %>');
+$('.col-md-10.content .view').html('<%= j render "view_switcher" %>');
+$('#results').html('<%= j render @view %>');
+
+<% if @view == 'grid' || @view == 'ceo' %>
+  $('#results').hide();
+
+  var length = $('#results img').length;
+  var loaded = 0;
+
+  $('#results img').load(function(){
+    $('.ajax-loader').show();
+    $(this).attr('data-loaded', true);
+    loaded = $('#results img[data-loaded=true]').length;
+
+    if(loaded == length){
+      $('.ajax-loader').hide();
+      $('#results').fadeIn();
+      $('#results img').addClass('scale');
+    };
+  });
+
+<% end %>

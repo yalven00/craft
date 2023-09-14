@@ -1,0 +1,1 @@
+$('.<%= @asset.asset_type.pluralize %> .well:first').replaceWith('<%= j render partial: "form", locals: {asset: @asset} %>').effect("highlight", 3000);

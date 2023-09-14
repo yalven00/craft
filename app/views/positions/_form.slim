@@ -1,0 +1,34 @@
+= form_for @position do |f|
+  .control-group
+    = f.label :company
+    .controls
+      = f.text_field :company
+
+  .control-group
+    = f.label :location
+    .controls
+      = f.text_field :location
+
+  .control-group
+    = f.label :title
+    .controls
+      = f.text_field :title
+
+  .control-group
+    = f.label :position_type
+    .controls
+      = f.select :position_type, options_for_select([['Full time', 'full_time'], ['Consulting', 'consulting']])
+
+  .control-group
+    = f.label :start_date
+    .controls
+      = f.date_select :start_date, start_year: 1950, end_year: Date.today.year, selected: @position.start_date || Date.strptime('1990, 01, 01', '%Y, %m, %d')
+  - unless params[:type] == 'current' || @position.current?
+    .control-group
+      = f.label :end_date
+      .controls
+        = f.date_select :end_date, start_year: 1950, end_year: 2020
+
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary btn-sm'
+    = link_to 'Cancel', :back, :class => 'btn'

@@ -1,0 +1,11 @@
+.row
+  .col-sm-12
+    = link_to divisions_path(company_id: @division.company_id), class: 'back', remote: true do
+      i.fa.fa-long-arrow-left
+      |  Back to all divisions
+    h3= @division.name
+    p= @division.description
+    h4 Teams
+    ul.areas.clearfix
+      - @division.teams.each do |team|
+        li= team.name

@@ -1,0 +1,14 @@
+= form_for @desired_job do |f|
+  - DesiredJob::FIELDS.each do |field|
+    - if (value = @desired_job.send(field)).present?
+      .control-group.edit
+        .control
+          = f.label field.to_sym
+          = f.text_field field.to_sym
+          = link_to 'Remove field', '#', class: 'remove-field'
+
+  = link_to 'Add another field', '#', class: 'add-field'
+
+  .control-group
+    .actions
+      = f.submit 'Save', class: 'btn btn-primary'

@@ -1,0 +1,76 @@
+.row
+  .col-md-12
+    table.table
+      thead
+        tr
+          th Company
+          th Position
+          th Location
+          th Start Date
+          th Actions
+
+      tbody
+        tr
+          td=position.company
+          td=position.title
+          td=position.location
+          td=position.start_date
+          td
+            = link_to 'Edit', edit_position_path(position), class: 'btn btn-xs btn-primary', remote: true
+            / = link_to 'Add salary', "/salary/new?position_id=#{position.id}", class: 'btn btn-mini'
+            = link_to 'End Position', end_position_path(position), data: { :confirm => "Are you sure you want to end #{position.title}?" }, class: 'btn btn-xs'
+            = link_to 'Remove', position_path(position), method: :delete, data: { :confirm => "Are you sure you want to delete #{position.title}?" }, class: 'btn btn-xs btn-danger', remote: true
+
+.row.projects
+  table.table.col-sm-12
+    thead
+      tr.row
+        / th Project
+        / th Start date
+        / th End date
+        / th Status
+        / th Duration
+        / th Attachments
+        / th Comment
+        / th Actions
+        th.span2 Name
+        th.span3 Description
+        th.span2 Dates
+        th.span2 Link
+        th.span2 Attachments
+        th.span1 Actions
+    tbody
+       / - position.projects.completed.each do |project|
+       - position.projects.each do |project|
+        = render 'projects/project', project: project, position: position
+
+= link_to t('.new', :default => "Add Project"), new_project_path(position_id: position.id), :class => 'btn btn-sm btn-primary', remote: true
+
+/ - if position.projects.active.present?
+/   .page-header
+/     h4 Active projects
+/   .row-fluid
+/     table.table.table-striped.span12
+/       thead
+/         tr.row
+/           th.span2 Name
+/           th.span3 Description
+/           th.span2  
+/             | Dates 
+/             small.muted 
+/               | (optional)
+/           th.span2 Link
+/           th.span2 Attachments
+/           th.span1 Actions
+/           / th Project
+/           / th Start date
+/           / th Status
+/           / / th % of total time
+/           / th Next steps
+/           / th Comments
+/           / th Actions
+/       tbody
+/         - position.projects.active.each do |project|
+/           = render 'projects/project', project: project, position: position
+
+//- if position.projects.completed.present?

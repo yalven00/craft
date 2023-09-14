@@ -1,0 +1,17 @@
+tr.row id=project.id
+  td= project.name
+  td= truncate(project.description)
+  td
+    = label_tag 'Start' if project.start_date.present?
+    = project.start_date
+    br
+    = label_tag 'End' if project.start_date.present?
+    = project.end_date 
+  td= project.link
+  td
+    = link_to "Show all", '#', class: 'btn show-assets', onclick: 'return false;'
+    .assets-popover style="display:none;"
+      = render 'assets/for_project', {project: project, delete: false}
+  td
+    = link_to 'Edit', edit_project_path(project), class: 'btn btn-mini', remote: true
+    = link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger'

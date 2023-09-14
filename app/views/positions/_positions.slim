@@ -1,0 +1,20 @@
+- @current_positions.full_time.each do |position|
+  .row-fluid id="position_#{position.id}"
+    = render partial: 'current_position', locals: {position: position}
+
+- @past_positions.full_time.each do |position|
+  .row-fluid id="position_#{position.id}"
+    = render partial: 'past_position', locals: {position: position}
+
+= link_to 'New position', new_position_path(type: 'full_time'), class: 'btn btn-primary btn-sm', remote: true
+
+h2 Consulting
+- @current_positions.consulting.each do |position|
+  .row-fluid id="position_#{position.id}"
+    = render partial: 'current_position', locals: {position: position}
+
+- @past_positions.consulting.each do |position|
+  .row-fluid id="position_#{position.id}"
+    = render partial: 'past_position', locals: {position: position}
+
+= link_to 'New position', new_position_path(type: 'consulting'), class: 'btn btn-primary btn-sm', remote: true

@@ -1,0 +1,19 @@
+.row-fluid
+  .span12
+    = form_for 'search', url: search_industries_path, remote: true, method: :get, html: { class: 'form-inline' } do |f|
+      .controls-group
+        .controls
+          = f.label 'industry', 'Industry'
+          = f.select 'industry', options_for_select(Industry.crunchbase_catagories)
+      .controls-group
+        .controls
+          = f.label 'industry', 'Location'
+          = f.select 'location', options_for_select(['Anywhere'])
+      .controls-group
+        .controls
+          = f.label 'industry', 'Keywords'
+          = f.select 'keywords', options_for_select(['(none)'])
+      = f.submit 'Search', class: 'btn btn-small btn-primary'
+
+.row-fluid
+  .span12.result

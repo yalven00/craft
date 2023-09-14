@@ -1,0 +1,19 @@
+.wrapper.group
+  = link_to root_path do
+    h1 Craft
+  nav#main-nav
+    ul
+      / = nav_link 'About', about_path, class: 'nav'
+      - if user_signed_in?
+        /   - nav_link 'Connect to LinkedIn', user_omniauth_authorize_path(:linkedin), class: 'nav' unless current_user.linkedin_authentication.present?
+        /   = nav_link 'Education', '/education', class: 'nav'
+        /   = nav_link 'Past Positions', past_positions_path, class: 'nav'
+        /   = nav_link 'Current Positions', current_positions_path, class: 'nav'
+        /   = nav_link 'Salary', compensations_path, class: 'nav'
+        /   = nav_link 'Goals, Dreams', goals_path, class: 'nav'
+        = nav_link 'My Lists', user_lists_path, class: 'nav'
+        = nav_link 'Edit User', edit_user_registration_path, class: 'nav'
+        = nav_link 'Log out', destroy_user_session_path(authenticity_token: form_authenticity_token()), method: :delete, class: 'nav'
+      - else
+        / # = nav_link 'What is Craft?', '', class: 'nav'
+        = link_to 'Sign in', new_user_session_path, class: 'signin-btn'

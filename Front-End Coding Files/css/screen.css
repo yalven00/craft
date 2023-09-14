@@ -1,0 +1,14 @@
+/*
+
+Title: Screen Styles and IE/Win Patches For My Career Pal
+Author: mikeeaton.co.uk
+Date: 16th October 2013
+
+*/
+
+/* import stylesheets and hide from IE/Mac \*/
+@import url("reset.css");
+@import url("master.css");
+@import url("sticky-footer.css");
+@import url("fonts.css");
+/* end import/hide */

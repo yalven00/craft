@@ -1,0 +1,47 @@
+/ h2 Goals
+
+/ .muted
+/   | e.g. become a brain surgeon
+/   br
+/   | work for Elon Musk
+/   br
+/   | drive the 42 bus
+
+/ table.table
+/   thead
+/     tr
+/       th Title
+/       th Description
+/       th Target Date
+/       th Actions
+
+/   tbody
+/     - @goals.each do |goal|
+/       tr
+/         td=goal.title
+/         td=goal.description
+/         td=goal.date
+/         td
+/           = link_to 'Edit', edit_goal_path(goal), class: 'btn btn-small'
+/           = link_to 'Delete', goal, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small btn-danger'
+
+/ .controls 
+/   = link_to 'New Goal', new_goal_path, class: 'btn btn-primary'
+/ hr
+
+h2 Target Jobs
+
+- @desired_jobs.each do |desired_job|
+  .row-fluid
+    .well id="desired_job_#{desired_job.id}"
+      .pull-right
+        = link_to 'Edit', edit_desired_job_path(desired_job), class: 'btn btn-mini'
+        = link_to 'Delete', desired_job, method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger'
+      table.table
+        - DesiredJob::FIELDS.each do |field|
+          - if (value = desired_job.send(field)).present?
+            tr
+              th=field.capitalize
+              td=value
+
+= link_to 'New Target Job', new_desired_job_path, class: 'btn btn-primary'

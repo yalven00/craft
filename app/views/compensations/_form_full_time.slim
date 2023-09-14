@@ -1,0 +1,23 @@
+tr id=@compensation.id class=@compensation.position_type
+  td= text_field_tag 'compensation[company]', @compensation.company, class: 'form-control'
+  td= text_field_tag 'compensation[location]', @compensation.location, class: 'form-control'
+  td= text_field_tag 'compensation[title]', @compensation.title, class: 'form-control'
+  td
+    = label_tag 'Start'
+    = text_field_tag 'compensation[start_date]', @compensation.start_date, class: 'form-control'
+    br
+    = label_tag 'End'
+    = text_field_tag 'compensation[end_date]', @compensation.end_date, class: 'form-control'
+  td= select_tag 'compensation[currency]', options_for_select(['USD', 'EUR', 'GBP', 'BTC'], selected: @compensation.currency), class: 'form-control'
+  td= text_field_tag 'compensation[base_salary]', @compensation.base_salary, class: 'form-control'
+  td= text_field_tag 'compensation[target]', @compensation.target, class: 'form-control'
+  td= text_field_tag 'compensation[actual_paid]', @compensation.actual_paid, class: 'form-control'
+  td= text_field_tag 'compensation[percent_of_target]', @compensation.percent_of_target, class: 'form-control', readonly: true
+  td= text_field_tag 'compensation[total]', @compensation.total, class: 'form-control'
+  td= text_field_tag 'compensation[equity]', @compensation.equity, class: 'form-control'
+  td
+    = text_field_tag 'compensation[notes]', @compensation.notes, class: 'form-control'
+    = hidden_field_tag 'compensation[position_type]', @compensation.position_type || params[:type], class: 'form-control'
+  td
+    = submit_tag 'Save', class: "btn btn-xs btn-success #{@compensation.new_record? ? 'create' : 'update' }-compensation"
+    = link_to 'Discard', compensation_path(@compensation), data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true

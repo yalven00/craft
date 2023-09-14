@@ -1,0 +1,267 @@
+script src="//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry" type="text/javascript"
+script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'
+.row
+  .col-md-9.col-sm-8.profile
+    .visible-xs.title
+      = image_tag @company.logo
+      = @company.name
+    ul#company-info-tabs.nav.nav-tabs.responsive.nav-justified
+      li
+        = image_tag @company.logo
+      li.active
+        a data-toggle="tab" href="#overview-tab"
+          i.fa.fa-home
+          |  
+          i.visible-xs Overview
+      li
+        a data-toggle="tab" href="#jobs-tab"
+          i.fa.fa-briefcase
+          |  
+          i.visible-xs Jobs
+      li
+        a data-toggle="tab" href="#locations-tab"
+          i.fa.fa-map-marker
+          |  
+          i.visible-xs Locations
+      li
+        a data-toggle="tab" href="#people-tab"
+          i.fa.fa-users
+          |  
+          i.visible-xs Key People
+      li
+        a data-toggle="tab" href="#finance-tab"
+          i.fa.fa-usd
+          |  
+          i.visible-xs Financial Profile
+      li
+        a data-toggle="tab" href="#growth-tab"
+          i.fa.fa-bar-chart-o
+          |  
+          i.visible-xs Growth Metrics
+    .tab-content.responsive
+      #overview-tab.tab-pane.active
+        .row
+          .col-sm-12
+            h2
+              = @company.name
+              - if @company.company_type.present?
+                span.info=@company.company_type
+            h3 Description
+            - if @company.full_description.present?
+              = simple_format @company.full_description
+            - else
+              = @company.description
+        .row.white
+          .col-sm-7.col-md-9
+            - if @company.screenshot.present?
+              h3 Home Page
+              a.img-holder href=@company.site
+                = image_tag @company.screenshot, class: 'img-responsive'
+          .col-sm-5.col-md-3
+            h3 Links
+            ul.fa-ul
+              - ['site', 'wikipedia', 'google_finance', 'duedil', 'crunchbase', 'glassdoor', 'linkedin'].each do |field|
+                - if @company.send(field).present?
+                  li
+                    a href=@company.send(field) target="_blank"
+                      i.fa-li.fa.fa-angle-right
+                      - field = 'homepage' if field == 'site'
+                      = field.capitalize
+        .row
+          - @company.media.each do |attachment|
+            .col-sm-12.col-md-10.col-lg-8
+              - if attachment.is_embed?
+                h3= attachment.description.html_safe
+                .response-iframe=attachment.embed.html_safe
+              - elsif attachment.is_image?
+                h3= attachment.description.html_safe
+                = image_tag attachment.file.url
+              - else
+                = link_to attachment.description.html_safe, attachment.file.url
+
+      #jobs-tab.tab-pane
+        - unless @company.company_type.blank?
+          = render @company.company_type.downcase
+
+        .row
+          .col-sm-12
+            h3 Jobs
+            - if @company.careers_page.present? && @company.teams.empty?
+              p=link_to "Visit #{@company.name} careers page", @company.careers_page
+            table.table.table-striped.job-list
+              tbody
+                - @jobs.each do |job|
+                  tr
+                    td
+                      p
+                        strong=job[:title]
+                      p #{number_to_currency(job[:salary_min], precision: 0)} - #{number_to_currency(job[:salary_max], precision: 0)} · #{job[:equity_min]} - #{job[:equity_max]}%
+                      p.tags
+                        - job[:tags].each do |tag|
+                          span.label.label-default=tag[:display_name]
+      #locations-tab.tab-pane
+        .row
+          .col-sm-12
+            h3 Locations
+            .row
+              .col-sm-12#map
+      #people-tab.tab-pane
+        .row
+          h3 Key People
+          .col-sm-6
+            - @company.people.current.each do |person|
+              .person
+                a href="http://www.crunchbase.com/person/#{person.permalink}" target="_blank"
+                  span.img
+                    / img src="http://res.cloudinary.com/crunchbase-production/image/upload/c_thumb,g_face,h_60,w_60/v1397185140/aba525adb54a41f7de941db57a0a8027.jpg"
+                  span.description
+                    strong= person.full_name
+                    br
+                    = person.title
+
+      #finance-tab.tab-pane
+        .row
+          .col-sm-12
+            h3 Financial Profile
+            table.table.table-striped
+              tbody
+                - if @company.stage.present?
+                  tr
+                    td Stage:
+                    td= @company.stage
+                - unless @company.revenue.blank? || @company.revenue.zero?
+                  tr
+                    td Revenue Estimate:
+                    td= number_to_currency @company.revenue, precision: 0
+                - unless @company.total_funding.blank? || @company.total_funding.zero?
+                  tr
+                    td Total funding:
+                    td= number_to_currency @company.total_funding, precision: 0
+                - unless @company.last_funding.blank? || @company.last_funding.zero?
+                  tr
+                    td Latest funding size:
+                    td= number_to_currency @company.last_funding, precision: 0
+                - if @company.last_funding_date
+                  tr
+                    td Time since last funding:
+                    td= time_ago_in_words(@company.last_funding_date)
+                - if @company.total_funding && @company.employees
+                  tr
+                    td $ per employee:
+                    td= number_to_currency(@company.total_funding / @company.employees, precision: 0)
+      #growth-tab.tab-pane
+        = render 'charts'
+        - if @company.name == 'Homejoy'
+          = render 'homejoy_charts'
+
+  .col-md-3.col-sm-4.feeds
+    ul#company-feed-tabs.nav.nav-tabs.responsive.nav-justified
+      li.active
+        a data-toggle="tab" href="#twitter-tab" 
+          i.fa.fa-twitter
+          i.visible-xs Twitter Feed
+      li
+        a data-toggle="tab" href="#rss-tab" 
+          i.fa.fa-rss
+          i.visible-xs News Feed
+    .tab-content.responsive
+      #twitter-tab.tab-pane.active
+        - @company.tweets.each do |tweet|
+          p = tweet.text
+      #rss-tab.tab-pane
+
+javascript:
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(#{raw @maps.to_json});
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+  });
+
+/ script src="//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry" type="text/javascript"
+/ script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' type='text/javascript'
+/ .row-fluid
+/   .span2
+/     = image_tag @linkedin_data['logo_url']
+/     - if @crunchbase_data
+/       h5 Tags
+/       ul
+/         - @crunchbase_data.tags.each do |tag|
+/           li =link_to tag, '#'
+
+/     / h5 Tech Stack
+/     / ul
+/     /   li =link_to 'Streaming', '#'
+/   .span10
+/     .row-fluid
+/       .span6
+/         .row-fluid
+/           .row-fluid
+/             h5 Vitals
+/           .row-fluid
+/             .span4 Financial Strength #{@company.strength}/5
+/             .span4 Employer Brand #{@company.buzz}/5
+/             .span4 Market Dynamic
+/         .row-fluid
+/           .span12=simple_format @linkedin_data.description
+/       .span6
+/         - if @crunchbase_data
+/           h5 Key People
+/           table.table
+/             tbody
+/               - @crunchbase_data.relationships[0..6].each do |relationship|
+/                 - unless relationship.is_past?
+/                   tr
+/                     td =link_to "#{relationship.person_first_name} #{relationship.person_last_name}", "http://www.crunchbase.com/person/#{relationship.person_permalink}"
+/                     td #{relationship.title}
+/                     / td =link_to '@follow', '#'
+/                     / td =link_to 'blog', '#'
+/     .row-fluid
+/       .span5
+/         .row-fluid 
+/           .span12
+/             h5 Locations (People)
+/             p Total: #{@company.size}
+/             - if @geodata
+/               .span12#map style="height: 400px;"
+        
+/               javascript:
+/                 handler = Gmaps.build('Google');
+/                 handler.buildMap({ provider: {}, internal: {id: 'map'}, sensor: false});
+/                 handler.addMarkers(#{raw @geodata.to_json});
+/         .row-fluid
+/           .span12
+/             h5 Financial Snapshot
+/             - if @company.total_fundings.present?
+/               table.table
+/                 tbody
+/                   tr
+/                     td Total funding
+/                     td $#{@company.total_fundings / 1000000}m
+/                   tr
+/                     td colspan="2" Latest funding
+/                   tr
+/                     td Size
+/                     td $#{@company.last_funding / 1000000}m
+/                   tr
+/                     td Days since
+/                     td = (Date.today - @company.last_funding_date).to_i
+/       .span5
+/         .row-fluid
+/         / .row-fluid 
+/         /   h5 Interview Talking points
+/         /   ul
+/         /     li Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+/       .span2
+/         h5 Teams
+/         / ul
+/         /   li Engineering 
+/         /   li Product 
+/         h5 Links
+/         ul
+/           li =link_to 'Careers page', @company.careers_page
+/           li =link_to 'LinkedIn', @company.linkedin
+/           li =link_to 'Crunchbase', @company.crunchbase
+/           li =link_to 'Wikipedia', @company.wikipedia
+/           li =link_to 'Glassdoor', @company.glassdoor
+/           li =link_to 'Twitter', @company.twitter_id

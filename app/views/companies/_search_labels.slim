@@ -1,0 +1,15 @@
+- if @filters[:industry]
+  span.label.label-default = @filters[:industry] 
+
+- if @filters[:category]
+  span.label.label-primary = @filters[:category] 
+
+- labels = {location: 'success', size: 'warning', growth: 'danger'}
+
+- labels.each do |key, value|
+  - @filters[key].each do |item|
+    - unless item == 'All'
+      span class="label label-#{value}"
+        = item
+
+/ span.label.label-info Public

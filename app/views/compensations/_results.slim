@@ -1,0 +1,10 @@
+table.table
+  thead
+    tr 
+      th State
+      th Salary
+  tbody
+    - @data.each do |d|
+      tr
+        td= d.location
+        td= d.salary

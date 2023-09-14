@@ -1,0 +1,11 @@
+tr id=project.id
+  td= project.name
+  td= project.start_date
+  td= status(project.status)
+  / td= project.percent_of_time
+  td= project.next_steps
+  td= project.description
+  td
+    = link_to 'Edit', edit_project_path(project), class: 'btn btn-primary btn-xs'
+    = link_to 'Mark Project Completed', complete_project_path(project), data: { confirm: "Mark #{project.name} completed?" }, class: 'btn btn-xs'
+    = link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'

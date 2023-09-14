@@ -1,0 +1,14 @@
+// Place all the styles related to the industries controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#industries{
+  max-height: 100%;
+  #tweets .tweets, #news .news {
+    position: fixed;
+    max-height: 90%;
+    overflow-y: scroll;
+  }
+  .news{
+    right: 0;
+  }
+}

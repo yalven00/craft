@@ -1,0 +1,5 @@
+.page-header
+  h1 Experience
+
+= link_to 'Import data from LinkedIn', user_omniauth_authorize_path(:linkedin), class: 'btn btn-sm' unless current_user.linkedin_authentication.present?
+= render partial: "positions"

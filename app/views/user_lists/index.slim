@@ -1,0 +1,17 @@
+.row-fluid
+  .span12
+    table.table
+      thead
+        tr
+          th Name
+          th Items
+          th Actions
+      tbody
+        - @user_lists.each do |user_list|
+          tr
+            td= link_to user_list.name, user_list
+            td= user_list.user_list_line_items.count
+            td
+              =link_to 'Delete', user_list, method: :delete, data: {confirm: "Are you sure you want to delete #{user_list.name}?"}, class: 'btn btn-danger btn-sm'
+
+  = link_to 'Create list', new_user_list_path, class: 'btn btn-primary btn-sm'

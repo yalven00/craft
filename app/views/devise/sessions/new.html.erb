@@ -1,0 +1,35 @@
+<div class="col-sm-6 col-sm-offset-3">
+  <div class="form-box" id="login-box">
+    <div class="header">Sign In or <%= link_to 'Sign Up', new_user_registration_path %></div>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+        <div class="body bg-gray">
+            <div class="margin text-center">
+              <%= link_to user_omniauth_authorize_path(:linkedin), class: 'btn btn-social btn-linkedin btn-sm' do %>
+                <i class="fa fa-linkedin"></i>
+                  Sign in with LinkedIn
+              <% end %>
+              <p>Don’t have a LinkedIn account?<br>
+              Enter your details below:</p>
+            </div>
+            <div class="form-group input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
+            </div>
+            <div class="form-group input-group">
+                <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+            </div>
+              <% if devise_mapping.rememberable? -%>
+                <div class="form-group">
+                    <%= f.check_box :remember_me %> Remember me
+                </div>
+              <% end -%>
+        </div>
+        <div class="footer">
+            <%= f.submit "Sign Me In", class: 'btn btn-info btn-block' %>
+            
+            <%= render "devise/shared/links" %>
+        </div>
+    <% end %>
+  </div>
+</div>

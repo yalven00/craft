@@ -1,0 +1,29 @@
+// Place all the styles related to the companies controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#companies{
+  .company-list, .search{
+    background: url(image_path('main-bg.jpg'));
+  }
+
+  .span2.search {
+    border-right: 1px solid green;
+  }
+  table td {
+    vertical-align: middle;
+    a {
+      span {
+        display: block;
+      }
+    }
+  }
+
+  table thead td {
+    text-align: center;
+    vertical-align: bottom;
+    img {
+    display: block;
+    margin: 0 auto;
+    }
+  }
+}

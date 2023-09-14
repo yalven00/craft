@@ -1,0 +1,110 @@
+#search-results
+  table.table.table-hover
+    thead
+      tr
+        th Company
+        th What it Does
+        / th Type
+        th HQ
+        th Employees
+        th
+          i.fa.fa-twitter.fa-lg
+          | Followers
+        th Add to List
+    tbody
+        - @companies.each do |company|
+          tr
+            td data-title="Company"
+              = link_to company_link(company), target: :blank do
+                = image_tag (company.logo || image_path('default.png'))
+                = company.name
+            td title=company.description data-title="What it Does"=company.description
+            / td data-title="Type"=company.type
+            td data-title="HQ"=company.city
+            td data-title="Employees"=number_with_delimiter(company.employees, delimiter: ",")
+            td data-title="Followers"
+              - if company.twitter.present?
+                = number_with_delimiter(company.twitter_followers, delimiter: ",")
+              - else
+                = 'N/A'
+
+            td data-title="Add to List"
+              - if user_signed_in?
+                - data = {toggle: 'popover', html: true, content: add_to_list_popover_content(current_user.user_lists, company.id), 'original-title' => 'Please select a list', 'company-id' => company.id}
+                - url = '#'
+              - else
+                - data, url = {}, new_user_session_path
+              = link_to url, class: 'btn btn-info btn-xs add-to-list', data: data do
+                i.fa.fa-plus
+
+javascript:
+  $('#grid-view').tooltip('show');
+
+/ .span12
+/   table.table
+/     thead
+/       tr
+/         td Company
+/         td What It Does
+/         / td Type
+/         td 
+/           = image_tag (image_path('linkedin_logo.png')), width: '32'
+/           | Employees
+/         / td Change last month
+/         td
+/           = image_tag (image_path('twitter_logo.png')), width: '32'
+/           | Followers
+/         td Add to List
+
+/     tbody
+/       - @companies.each do |company|
+/         tr
+/           td
+/             = link_to (company.careers_page || '#') do
+/               = image_tag company.logo.url
+/               span= company.name
+/           td= company.description
+/           / td= company.company_type
+/           td= company.employees
+/           / td= company.growth.round
+/           td= company.twitter_followers
+/           td
+/             - if user_signed_in? 
+/               = link_to '+', '#', class: 'btn btn-success add-to-list', data: {toggle: 'popover', html: true, content: add_to_list_popover_content(current_user.user_lists, company.id), 'original-title' => 'Please select a list', 'company-id' => company.id}
+/             - else
+/               = link_to '+', new_user_session_path, class: 'btn btn-success'
+
+/ javascript:
+/   $('#companies a.add-to-list').popover();
+
+/ .row-fluid
+/   .span12
+/     h4.span6 #{pluralize(@companies.size, 'company')}
+/     .sort.span6
+/       form
+/         = label_tag 'sort'
+/         = select_tag 'sort', options_for_select(['Employees - High to Low', 'Employees - Low to High'])
+
+/ #results
+/   table.table
+/     thead
+/       tr
+/         th Company
+/         th HQ
+/         th Age
+/         th Employees
+/     tbody
+/       - @companies.each do |company|
+/         - if company
+/           - company = company.entity
+/           - office = company.offices.first || {city: ''}
+/           - image = company.image
+/           tr
+/             td
+/               - if image
+/                 = image_tag ('http://www.crunchbase do.com/' + image['available_sizes'].first.last)
+/               - else
+/                 = company.name
+/             td= office['city']
+/             td= Date.today.year - company.founded.year if company.founded
+/             td= company.number_of_employees

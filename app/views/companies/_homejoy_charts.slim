@@ -1,0 +1,141 @@
+// Homejoy charts
+// Based on excel file
+
+.row
+  .col-sm-6.col-sm-offset-3
+    .form-inline
+      = select_tag 'date', options_for_select([['Jan-2014', 'old'], ['May-2014', 'new']], 'new'), {class: 'form-control'}
+      = submit_tag 'Show', class: 'btn btn-primary btn-sm'
+
+.row
+  .col-md-6
+    #level.chart-wrap data-new=[['Support', 7], ['Associate/Manager', 62], ['Director', 4], ['VP', 2], ['C-Level', 2]].to_json data-old=[['Support', 24], ['Associate/Manager', 60], ['Director', 5], ['VP', 2], ['C-Level', 2]].to_json
+
+  .col-md-6
+    #team.chart-wrap data-new=[['Product', 2], ['Engineering', 8], ['Growth', 2], ['HQ Operations', 11], ['Field Operations', 19], ['Finance', 2], ['People & Talent', 9], ['Sales & Marketing', 9], ['Client Services', 15], ['Community', 0]].to_json data-old=[['Product', 2], ['Engineering', 8], ['Growth', 1], ['HQ Operations', 14], ['Field Operations', 25], ['Finance', 2], ['People & Talent', 11], ['Sales & Marketing', 9], ['Client Services', 21], ['Community', 1]].to_json
+
+.row
+  .col-md-6
+    #location.chart-wrap data-new=[['SF', 60], ['LA', 2], ['Seattle', 2], ['Phoenix', 1], ['Dallas', 2], ['Austin', 1], ['Denver', 1], ['Miami', 2], ['Charlotte', 1], ['Washington DC', 1], ['NY', 2], ['Boston', 1], ['Minneapolis', 1], ['London', 0], ['The Hague', 0], ['Orange Country', 0], ['Toronto', 0]].to_json data-old=[['SF', 69], ['LA', 3], ['Seattle', 2], ['Phoenix', 1], ['Dallas', 3], ['Austin', 1], ['Denver', 0], ['Miami', 2], ['Charlotte', 1], ['Washington DC', 1], ['NY', 3], ['Boston', 1], ['Minneapolis', 3], ['London', 2], ['The Hague', 1], ['Orange Country', 1], ['Toronto', 1]].to_json
+
+  .col-md-6
+    #gender.chart-wrap data-new=[['Male', 40], ['Female', 37]].to_json data-old=[['Male', 41], ['Female', 53]].to_json
+
+coffee:
+  init_charts = (type = 'new') ->
+    level_data = $('#level').data type
+
+    $("#level").highcharts
+      chart:
+        plotBackgroundColor: null
+        plotBorderWidth: null
+        plotShadow: false
+
+      title: 
+        text: 'Level'
+
+      tooltip:
+        pointFormat: "{series.name}: <b>{point.y}</b>"
+
+      plotOptions:
+        pie:
+          allowPointSelect: true
+          cursor: "pointer"
+          dataLabels:
+            enabled: true
+            format: "<b>{point.name}</b>: {point.y}"
+
+      series: [
+        type: "pie"
+        data: level_data
+      ]
+
+    team_data = $('#team').data type
+
+    $("#team").highcharts
+      chart:
+        plotBackgroundColor: null
+        plotBorderWidth: null
+        plotShadow: false
+
+      title: 
+        text: 'Team'
+
+      tooltip:
+        pointFormat: "{series.name}: <b>{point.y}</b>"
+
+      plotOptions:
+        pie:
+          allowPointSelect: true
+          cursor: "pointer"
+          dataLabels:
+            enabled: true
+            format: "<b>{point.name}</b>: {point.y}"
+
+      series: [
+        type: "pie"
+        data: team_data
+      ]
+
+    location_data = $('#location').data type
+
+    $("#location").highcharts
+      chart:
+        plotBackgroundColor: null
+        plotBorderWidth: null
+        plotShadow: false
+
+      title: 
+        text: 'Location'
+
+      tooltip:
+        pointFormat: "{series.name}: <b>{point.y}</b>"
+
+      plotOptions:
+        pie:
+          allowPointSelect: true
+          cursor: "pointer"
+          dataLabels:
+            enabled: true
+            format: "<b>{point.name}</b>: {point.y}"
+
+      series: [
+        type: "pie"
+        data: location_data
+      ]
+
+    gender_data = $('#gender').data type
+
+    $("#gender").highcharts
+      chart:
+        plotBackgroundColor: null
+        plotBorderWidth: null
+        plotShadow: false
+
+      title: 
+        text: 'Gender'
+
+      tooltip:
+        pointFormat: "{series.name}: <b>{point.percentage:.0f} %</b>"
+
+      plotOptions:
+        pie:
+          allowPointSelect: true
+          cursor: "pointer"
+          dataLabels:
+            enabled: true
+            format: "<b>{point.name}</b>: {point.percentage:.0f} %"
+
+      series: [
+        type: "pie"
+        data: gender_data
+      ]
+
+  $('input[type="submit"]').click ()->
+    type = $('#date').val()
+    init_charts(type)
+
+
+  $(document).ready ()->
+    init_charts()
+

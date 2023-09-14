@@ -1,0 +1,31 @@
+- asset ||= @asset
+
+fieldset.well id="asset_#{asset.id}"
+  - unless asset.missing?
+    = link_to_file asset
+    = link_to '×', asset, method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'close'
+
+  = form_for asset do |f|
+    .control-group
+      .controls
+        = f.label :file
+        = f.file_field :file, data: {url: asset_path(asset)}
+    = f.hidden_field :for_model
+    = f.hidden_field :mid
+    = f.hidden_field :asset_type
+
+  javascript:
+    var asset_id = "#{asset.id}"
+
+  coffee:
+    $("fieldset.well#asset_#{asset_id} input[id='asset_file']:first").fileupload
+      dataType: "script"
+      progressall: (e, data) ->
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .bar').css('width',progress + '%')
+      add: (e, data) ->
+        data.context = $('<button/>').text('Upload').appendTo($(this).parent()).click () ->
+          data.context = $('<p class="uploading"/>').text('Uploading...').replaceAll($(this));
+          data.submit()
+      done: (e, data) ->
+          data.context.text('Upload finished.')

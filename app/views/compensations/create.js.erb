@@ -1,0 +1,4 @@
+$('tbody.<%= @compensation.position_type %> tr:last').replaceWith('<%= j render partial: "show_#{@compensation.position_type}" %>');
+if ('<%= @compensation.position_type == "full_time" %>' == 'true'){
+  $('#bonus_off, #equity_off').prop('checked', true).change(); // Fire 'change' event to show hidden cells.
+}

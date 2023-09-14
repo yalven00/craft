@@ -1,0 +1,14 @@
+- if @company.teams.present?
+  .row
+    .col-sm-12.teams
+      h3 Teams
+
+      - if @company.careers_page.present?
+        p= link_to "Visit #{@company.name} jobs page", @company.careers_page
+
+      - (Team::CATEGORIES - ['not applicable']).each do |category|                
+        h4 #{category.capitalize}
+
+        ul class="areas clearfix #{category}"
+          - @company.teams.send(category).each do |team|
+            li class="#{category}"= team.name

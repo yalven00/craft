@@ -1,0 +1,13 @@
+<p>Hi,</p>
+ 
+<p>Thank you for registering with Craft.  To complete your signup, click this button: <%= link_to 'Complete Signup', user_confirmation_url(:confirmation_token => @token) %></p>
+ 
+<p>Or, copy and paste this link into your browser:</p>
+ 
+<p><%= user_confirmation_url(:confirmation_token => @token) %></p>
+
+<p>Thank you,</p>
+<p>The Craft Team</p>
+ 
+ 
+<p>You've received this email because somebody signed up for Craft using this email address. If you didn't sign up for Craft, you can safely disregard this message.</p>

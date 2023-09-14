@@ -1,0 +1,22 @@
+/* Sticky Footer
+----------------------------------------*/
+
+html, body {
+height: 100%;
+}
+
+#container {
+min-height: 100%;
+margin-bottom: -52px;
+position: relative;
+}
+
+#footer {
+height: 52px;
+position: relative;
+}
+
+div.clearfooter {
+height: 52px;
+clear: both;
+}

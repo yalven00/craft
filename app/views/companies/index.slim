@@ -1,0 +1,11 @@
+= render 'search'
+
+.col-md-10.content
+  .content-header.clearfix
+    .view.pull-right
+    .search-labels
+  #results
+      = link_to '#', search_companies_path(company: {industry_id: @selected, size: {'All' => '1'}, location: {'All' => '1'}, growth: {'All' => '1'}}, ceo: params[:ceo]), remote: true, class: 'hidden search-link'
+
+javascript:
+  $(document).ready(function(){$('a.search-link').click();})

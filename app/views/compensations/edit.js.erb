@@ -1,0 +1,4 @@
+if ('<%= @compensation.position_type == "full_time" %>' == 'true'){
+  $('#bonus_on, #equity_on').prop('checked', true).change(); // Fire 'change' event to show hidden cells.
+}
+$('tr#<%= @compensation.id %>').replaceWith('<%= j render partial: "form_#{@compensation.position_type}" %>');

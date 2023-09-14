@@ -1,0 +1,18 @@
+tr id=@compensation.id
+  td= @compensation.company
+  td= @compensation.location
+  td
+    = @compensation.start_date
+    br
+    = @compensation.end_date
+  td= @compensation.rate_type
+  td= @compensation.currency
+  td= number_with_delimiter @compensation.rate.round
+  td= number_with_delimiter @compensation.number.round
+  td= number_with_delimiter @compensation.base_salary.round
+  td= number_with_delimiter @compensation.bonus.round
+  td= number_with_delimiter @compensation.total.round
+  td= @compensation.notes
+  td
+    = link_to 'Edit', edit_compensation_path(@compensation), class: 'btn btn-xs', remote: true
+    = link_to 'Delete', compensation_path(@compensation), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', remote: true

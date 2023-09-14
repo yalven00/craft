@@ -1,0 +1,4 @@
+$('a.add-to-list').popover('hide');
+$("a.add-to-list[data-company-id=<%= @company_id %>]").html('✓')
+.removeClass('btn-success')
+.addClass('btn-danger').attr('href', '<%= "/user_lists/#{@user_list.id}/remove/#{@company_id}" %>').attr('data-remote', true).popover('destroy');

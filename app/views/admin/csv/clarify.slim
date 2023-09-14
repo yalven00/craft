@@ -1,0 +1,15 @@
+p This form will update companies presented in uploaded CSV.
+p Only company ID is required, everything else is optional.
+
+= link_to 'Show me example file', '/clarify_example.csv'
+
+= form_for :dump, url: { action: 'clarify_post' }, html: { multipart: true, method: :post } do |f|
+  table
+    tr
+      td
+        label Please select a file to import
+      td
+        = f.file_field :file
+    tr
+      td
+        = submit_tag 'Submit'
